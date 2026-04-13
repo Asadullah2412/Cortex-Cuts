@@ -1,5 +1,5 @@
 streamlit
-langchain-community
+langchain-community langchain-core
 youtube-transcript-api
 google-genai
 openai
