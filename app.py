@@ -1,6 +1,6 @@
 
 import streamlit as st
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from warnings import filterwarnings
 from video_details import extract_video_id,extract_transcript
 from summary_pdf import generate_summary,generate_pdf
@@ -23,7 +23,7 @@ def streamlit_config():
     )
 def main():
     filterwarnings("ignore")
-    load_dotenv()
+    # load_dotenv()
     streamlit_config()
 
     video_url = None
