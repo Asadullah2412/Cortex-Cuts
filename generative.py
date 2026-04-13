@@ -6,8 +6,12 @@ import os
 # import streamlit as st
 
 # Works both locally and on Streamlit Cloud
-GOOGLE_API_KEY = st.secrets.get("GOOGLE_API_KEY", os.getenv("GOOGLE_API_KEY", ""))
-OPENROUTER_API_KEY = st.secrets.get("OPENROUTER_API_KEY", os.getenv("OPENROUTER_API_KEY", ""))
+def get_secret(key: str) -> str:
+    """Read from st.secrets (Streamlit Cloud) or os.environ (local)."""
+    try:
+        return st.secrets[key]
+    except (FileNotFoundError, KeyError):
+        return os.getenv(key, "")
 
 # ── Gemini summary ────────────────────────────────────────────────────────────
 def generate_with_gemini(transcript_text: str, prompt: str) -> str | None:
@@ -20,9 +24,9 @@ def generate_with_gemini(transcript_text: str, prompt: str) -> str | None:
         "gemini-2.0-flash-lite",
         "gemini-2.5-flash-lite",
     ]
-
+    api_key = get_secret("GOOGLE_API_KEY")
     try:
-        client = google_genai.Client(api_key=GOOGLE_API_KEY)
+        client = google_genai.Client(api_key=api_key)
     except KeyError:
         st.error("❌ GOOGLE_API_KEY not set. Run: export GOOGLE_API_KEY=your_key")
         return None
@@ -63,11 +67,11 @@ def generate_with_openrouter(transcript_text: str, prompt: str, model: str) -> s
     if OpenAI is None:
         st.error("❌ openai not installed. Run: pip install openai")
         return None
-
+    api_key = get_secret("OPENROUTER_API_KEY")
     try:
         client = OpenAI(
             base_url="https://openrouter.ai/api/v1",
-            api_key=OPENROUTER_API_KEY,
+            api_key=api_key,
         )
 
         response = client.chat.completions.create(
