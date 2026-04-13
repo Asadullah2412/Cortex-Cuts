@@ -1,0 +1,7 @@
+streamlit
+langchain-community
+youtube-transcript-api
+google-genai
+openai
+reportlab
+python-dotenv
