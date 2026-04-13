@@ -10,7 +10,7 @@ from generative import OPENROUTER_MODELS
 
 # ── Page config ───────────────────────────────────────────────────────────────
 def streamlit_config():
-    st.set_page_config(page_title="cortex cuts-YouTube Summarizer", page_icon="▶️")
+    st.set_page_config(page_title="cortex cuts-YouTube Summarizer")
     st.markdown("""
         <style>
         [data-testid="stHeader"] { background: rgba(0,0,0,0); }
@@ -30,9 +30,7 @@ def main():
     submit = False
 
     with st.sidebar:
-        st.image(
-            "https://raw.githubusercontent.com/gopiashokan/YouTube-Video-Transcript-Summarizer-with-GenAI/main/image/youtube_banner.JPG"
-        )
+       
 
         st.markdown("### ⚙️ Settings")
 
